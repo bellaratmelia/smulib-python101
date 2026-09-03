@@ -16,14 +16,14 @@ The correct option is marked ✅ and each question has a short teaching point fo
 
 > Teaching point: `.info()` shows non-null counts (you'd have to subtract), `.describe()` ignores missingness entirely — `.isna().sum()` counts gaps per column directly.
 
-### Q2. What's the difference between `data["age"]` and `data[["age"]]`?
+### Q2. Your AI helper writes `data["Age"]` and it crashes with `KeyError: 'Age'`. Which of these is the fix?
 
-- A) No difference
-- B) `data["age"]` returns a Series (1-D); `data[["age"]]` returns a DataFrame (2-D) ✅
-- C) `data[["age"]]` throws an error
-- D) `data["age"]` returns a DataFrame
+- A) Reinstall pandas
+- B) The CSV file is corrupted
+- C) Add more brackets: `data[["Age"]]`
+- D) None of the above is the reason ✅
 
-> Teaching point: single bracket → Series, double bracket → DataFrame. The double-bracket form is also how you grab several columns at once (`data[["marital_status","age"]]`).
+> Teaching point: this is a discussion prompt — all three concrete options are red herrings, so poll first, then ask the room *“so what’s actually going on?”* The real reason: the column is `age` (lowercase). pandas column names are case- and spelling-sensitive, and the AI guessed wrong; `data.columns` shows the true names. This is the single most common way AI-written pandas quietly fails — and it calls back to the preliminary-checks slide.
 
 ### Q3. Which line correctly selects participants who value work AND are male?
 
@@ -59,9 +59,9 @@ The correct option is marked ✅ and each question has a short teaching point fo
 ### Q6. You want the average `life_satisfaction` for EACH country. Which line?
 
 - A) `data["life_satisfaction"].mean()`
-- B) `data.groupby("country_code")["life_satisfaction"].mean()` ✅
+- B) `data.sort_values("life_satisfaction")`
 - C) `data["life_satisfaction"].value_counts()`
-- D) `data.sort_values("life_satisfaction")`
+- D) `data.groupby("country_code")["life_satisfaction"].mean()` ✅
 
 > Teaching point: the word "**each**" is the signal for `groupby`. Option A gives one overall number, not one per country.
 
